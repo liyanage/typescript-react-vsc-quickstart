@@ -6,7 +6,7 @@ define(include_and_indent, {{esyscmd({{sed -e 's/^/    /' $1}})}})dnl
 Note to self for setting up a basic React/TypeScript/Webpack project
 with Visual Studio Code (VSC).
 
-A lot of this is collected from https://www.typescriptlang.org/docs/handbook/react-&-webpack.html and https://webpack.js.org/guides.
+A lot of this is collected from <https://www.typescriptlang.org/docs/handbook/react-&-webpack.html> and <https://webpack.js.org/guides.>
 
 ## Prerequisites
 
@@ -78,7 +78,7 @@ include_and_indent(dist/index.html)
 
 ## Add a webpack Configuration File
 
-Add a `webpack.config.js` file. This is based on https://www.typescriptlang.org/docs/handbook/react-&-webpack.html.
+Add a `webpack.config.js` file. This is based on <https://www.typescriptlang.org/docs/handbook/react-&-webpack.html.>
 
 include_and_indent(webpack.config.js)
 
@@ -121,7 +121,7 @@ To start watch mode, run:
 
     npm run watch
 
-It should be pretty fast for incremental builds. Just reload the `index.html` file to see the changes. 
+It should be pretty fast for incremental builds. Just reload the `index.html` file to see the changes.
 
 ## Run with dev-server
 
