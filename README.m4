@@ -1,3 +1,5 @@
+changequote({{,}})dnl
+define(include_and_indent, {{esyscmd({{sed -e 's/^/    /' $1}})}})dnl
 
 # TypeScript / React / Webpack / Visual Studio Code Quick Start
 
@@ -56,22 +58,7 @@ Install webpack and related libraries:
 
 Create a basic TypeScript configuration file as `tsconfig.json`:
 
-    {
-        "compilerOptions": {
-            "outDir": "./dist/",
-            "sourceMap": true,
-            "noImplicitAny": true,
-            "module": "commonjs",
-            "jsx": "react"
-        },
-        "include": [
-            "./src/**/*"
-        ],
-        "exclude": [
-            "node_modules"
-        ]
-    }
-
+include_and_indent(tsconfig.json)
 
 ## HTML and TS files
 
@@ -79,105 +66,21 @@ Create a component, a main code file, and a main HTML file to load it all.
 
 `src/components/Message.tsx`:
 
-    import * as React from "react";
-    
-    interface MessageProps {
-        title: string;
-    }
-    
-    export class Message extends React.Component<MessageProps> {
-        constructor(props: MessageProps) {
-            super(props);
-        }
-        render() {
-            return (
-                <div className="ui info message">
-                    <div className="header">{this.props.title}</div>
-                    <div>{this.props.children}</div>
-                </div>
-            );
-        }
-    }
-
+include_and_indent(src/components/Message.tsx)
 
 `src/index.tsx`
 
-    import * as React from "react";
-    import * as ReactDOM from "react-dom";
-    import { Message } from "./components/Message";
-    
-    const tf = (
-        <Message title="Hi">
-            <p>Hello World</p>
-        </Message>
-    )
-    ReactDOM.render(tf, document.querySelector("#container"));
-
+include_and_indent(src/index.tsx)
 
 `dist/index.html`
 
-    <!doctype html>
-    <html lang="en">
-        <head>
-            <title></title>
-            <meta charset="utf-8">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
-        </head>
-        <body>
-            <div id="container" class="ui main container" style="margin-top: 2em;"></div>
-    
-            <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
-    
-            <script src="bundle.js"></script>
-        </body>
-    </html>
-
+include_and_indent(dist/index.html)
 
 ## Add a webpack Configuration File
 
 Add a `webpack.config.js` file. This is based on https://www.typescriptlang.org/docs/handbook/react-&-webpack.html.
 
-    module.exports = {
-        mode: "development",
-        entry: "./src/index.tsx",
-        output: {
-            filename: "bundle.js",
-            path: __dirname + "/dist"
-        },
-    
-        devServer: {
-            contentBase: './dist'
-        },
-    
-        // Enable sourcemaps for debugging webpack's output.
-        devtool: "source-map",
-    
-        resolve: {
-            // Add '.ts' and '.tsx' as resolvable extensions.
-            extensions: [".ts", ".tsx", ".js", ".json"]
-        },
-    
-        module: {
-            rules: [
-                // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
-                { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
-    
-                // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-                { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
-            ]
-        },
-    
-        // When importing a module whose path matches one of the following, just
-        // assume a corresponding global variable exists and use that instead.
-        // This is important because it allows us to avoid bundling all of our
-        // dependencies, which allows browsers to cache those libraries between builds.
-        // externals: {
-        //     "react": "React",
-        //     "react-dom": "ReactDOM"
-        // }
-    };
-
+include_and_indent(webpack.config.js)
 
 ## Add build and watch Commands
 
