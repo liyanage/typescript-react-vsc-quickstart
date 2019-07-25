@@ -2,11 +2,11 @@
   "name": "typescript-react-vsc-quickstart2",
   "version": "1.0.0",
   "description": "Fabulous Project",
-  "main": "index.tsx",
+  "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node_modules/.bin/webpack",
-    "watch": "node_modules/.bin/webpack --watch"
+    "build": "npx webpack --config webpack.config.js",
+    "watch": "npx webpack --config webpack.config.js --watch"
   },
   "author": "Marc Liyanage",
   "license": "ISC",
@@ -15,7 +15,8 @@
     "source-map-loader": "^0.2.4",
     "typescript": "^3.3.3333",
     "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3"
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
     "@types/react": "^16.8.6",
