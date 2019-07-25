@@ -64,15 +64,15 @@ include_and_indent(tsconfig.json)
 
 Create a component, a main code file, and a main HTML file to load it all.
 
-`src/components/Message.tsx`:
+### src/components/Message.tsx
 
 include_and_indent(src/components/Message.tsx)
 
-`src/index.tsx`
+### src/index.tsx
 
 include_and_indent(src/index.tsx)
 
-`dist/index.html`
+### dist/index.html
 
 include_and_indent(dist/index.html)
 

@@ -1,5 +1,5 @@
 
 
-README.md: README.m4
+README.md: README.m4 src/components/Message.tsx src/index.tsx dist/index.html
 	m4 $< > $@
 
