@@ -132,7 +132,7 @@ This requires the following section in `webpack.config.js`, already shown above:
         contentBase: './dist'
     },
 
-and this additional entry in the `scripts` section of `package.json` (also already shown above):
+and another additional entry in the `scripts` section of `package.json`:
 
     "start": "npx webpack-dev-server --open"
 
