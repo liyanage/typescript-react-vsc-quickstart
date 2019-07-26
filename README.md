@@ -129,9 +129,11 @@ Create a component, a main code file, and a main HTML file to load it all.
         <title>Hello, world!</title>
       </head>
       <body>
-        <h1>Hello, world!</h1>
-    
-        <div id="container" class="container" style="margin-top: 2em;"></div>
+        <div class="container mt-5">
+          <h1>Hello, world!</h1>
+          <div id="container" style="margin-top: 2em;">
+          </div>
+        </div>
         
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
