@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx webpack --config webpack.config.js",
-    "watch": "npx webpack --config webpack.config.js --watch"
+    "watch": "npx webpack --config webpack.config.js --watch",
+    "start": "npx webpack-dev-server --open"
   },
   "author": "Marc Liyanage",
   "license": "ISC",

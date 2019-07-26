@@ -132,6 +132,14 @@ This requires the following section in `webpack.config.js`, already shown above:
         contentBase: './dist'
     },
 
+and this additional entry in the `scripts` section of `package.json` (also already shown above):
+
+    "start": "npx webpack-dev-server --open"
+
+Now you can start it with
+
+    npm run start
+
 ## Set up Git repo
 
 Create a `.gitignore` file with these contents:
