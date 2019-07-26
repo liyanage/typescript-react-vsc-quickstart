@@ -151,3 +151,11 @@ Init Git repo:
     git init
     git add .
     git commit -m init
+
+## NPM Maintenance
+
+Various NPM commands:
+
+    npm outdated
+    npm update
+    npm update package@latest
