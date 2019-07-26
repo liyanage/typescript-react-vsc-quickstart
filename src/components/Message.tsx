@@ -10,9 +10,12 @@ export class Message extends React.Component<MessageProps> {
     }
     render() {
         return (
-            <div className="ui info message">
-                <div className="header">{this.props.title}</div>
-                <div>{this.props.children}</div>
+            <div className="card">
+                <div className="card-body">
+                    <h5 className="card-title">{this.props.title}</h5>
+                    <p className="card-text">{this.props.children}</p>
+                    <a href="#" className="btn btn-primary">Go somewhere</a>
+                </div>
             </div>
         );
     }

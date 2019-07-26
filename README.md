@@ -45,7 +45,7 @@ Install a few packages that provide TypeScript, React, and React TypeScript bind
 Visual Studio Code will use to provide intelligent suggestions etc.:
 
     npm install --save-dev typescript
-    npm install --save react react-dom @types/react @types/react-dom
+    npm install --save react react-dom @types/node @types/react @types/react-dom
 
 Install webpack and related libraries:
 
@@ -72,7 +72,6 @@ Create a basic TypeScript configuration file as `tsconfig.json`:
         ]
     }
 
-
 ## HTML and TS files
 
 Create a component, a main code file, and a main HTML file to load it all.
@@ -91,14 +90,16 @@ Create a component, a main code file, and a main HTML file to load it all.
         }
         render() {
             return (
-                <div className="ui info message">
-                    <div className="header">{this.props.title}</div>
-                    <div>{this.props.children}</div>
+                <div className="card">
+                    <div className="card-body">
+                        <h5 className="card-title">{this.props.title}</h5>
+                        <p className="card-text">{this.props.children}</p>
+                        <a href="#" className="btn btn-primary">Go somewhere</a>
+                    </div>
                 </div>
             );
         }
     }
-
 
 ### src/index.tsx
 
@@ -112,7 +113,6 @@ Create a component, a main code file, and a main HTML file to load it all.
         </Message>
     )
     ReactDOM.render(tf, document.querySelector("#container"));
-
 
 ### dist/index.html
 
@@ -131,16 +131,16 @@ Create a component, a main code file, and a main HTML file to load it all.
       <body>
         <h1>Hello, world!</h1>
     
-        <div id="container" style="margin-top: 2em;"></div>
+        <div id="container" class="container" style="margin-top: 2em;"></div>
         
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="bundle.js"></script>
       </body>
     </html>
-
 
 ## Add a webpack Configuration File
 
@@ -186,16 +186,12 @@ Add a `webpack.config.js` file. This is based on <https://www.typescriptlang.org
         // }
     };
 
-
 ## Add build and watch Commands
 
 Add a "build" and "watch" command to the "scripts" section of your `package.json` file:
 
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "node_modules/.bin/webpack --config webpack.config.js",
-        "watch": "node_modules/.bin/webpack --config webpack.config.js --watch"
-    },
+    "build": "npx webpack --config webpack.config.js",
+    "watch": "npx webpack --config webpack.config.js --watch"
 
 ## Build the Project
 
@@ -239,3 +235,17 @@ This requires the following section in `webpack.config.js`, already shown above:
     devServer: {
         contentBase: './dist'
     },
+
+## Set up Git repo
+
+Create a `.gitignore` file with these contents:
+
+    node_modules
+    dist/*
+    !dist/index.html
+
+Init Git repo:
+
+    git init
+    git add .
+    git commit -m init

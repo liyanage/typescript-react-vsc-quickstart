@@ -1,5 +1,5 @@
 changequote({{,}})dnl
-define(include_and_indent, {{esyscmd({{sed -e 's/^/    /' $1}})}})dnl
+define(include_and_indent, {{esyscmd({{sed -e 's/^/    /' $1}})dnl}})dnl
 
 # TypeScript / React / Webpack / Visual Studio Code Quick Start
 
@@ -47,7 +47,7 @@ Install a few packages that provide TypeScript, React, and React TypeScript bind
 Visual Studio Code will use to provide intelligent suggestions etc.:
 
     npm install --save-dev typescript
-    npm install --save react react-dom @types/react @types/react-dom
+    npm install --save react react-dom @types/node @types/react @types/react-dom
 
 Install webpack and related libraries:
 
@@ -86,11 +86,8 @@ include_and_indent(webpack.config.js)
 
 Add a "build" and "watch" command to the "scripts" section of your `package.json` file:
 
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "node_modules/.bin/webpack --config webpack.config.js",
-        "watch": "node_modules/.bin/webpack --config webpack.config.js --watch"
-    },
+    "build": "npx webpack --config webpack.config.js",
+    "watch": "npx webpack --config webpack.config.js --watch"
 
 ## Build the Project
 
@@ -134,3 +131,15 @@ This requires the following section in `webpack.config.js`, already shown above:
     devServer: {
         contentBase: './dist'
     },
+
+## Set up Git repo
+
+Create a `.gitignore` file with these contents:
+
+include_and_indent(.gitignore)
+
+Init Git repo:
+
+    git init
+    git add .
+    git commit -m init
