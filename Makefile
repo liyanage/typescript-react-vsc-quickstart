@@ -1,8 +1,16 @@
 
+all: dist/bundle.js
 
-README.md: README.m4 src/components/Message.tsx src/index.tsx dist/index.html
+node_modules:
+	npm install
+
+dist/bundle.js: node_modules dist/index.html src/*.tsx src/components/*.tsx
+
+README.md: README.m4 src/components/*.tsx src/*.tsx dist/index.html
 	m4 $< > $@
 
-start:
+start: dist/bundle.js
 	npm run start
 
+clean:
+	rm -rf dist/bundle.js* node_modules
