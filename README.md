@@ -1,8 +1,8 @@
 
 # TypeScript / React / Webpack / Visual Studio Code Quick Start
 
-Note to self for setting up a basic React/TypeScript/Webpack project
-with Visual Studio Code (VSC).
+This is mostly a long note to myself for setting up a basic React/TypeScript/Webpack
+project with Visual Studio Code (VSC). Hopefully it is useful as a starting point for others.
 
 A lot of this is collected from <https://www.typescriptlang.org/docs/handbook/react-&-webpack.html> and <https://webpack.js.org/guides.>
 
@@ -12,13 +12,13 @@ This assumes you have [node.js and NPM](https://nodejs.org/en/) installed.
 
 # Basic Node Project setup
 
-Create the project toplevel directory:
+## Create the project toplevel directory
 
     mkdir typescript-react-vsc-quickstart
     cd typescript-react-vsc-quickstart
     mkdir -p {dist,src/components}
 
-Initialize a node package for the project:
+## Initialize a node package for the project
 
     % npm init
     package name: (typescript-react-vsc-quickstart2) 
@@ -41,16 +41,38 @@ and removing:
 
     "main": index.js
 
+## Install prerequisite NPM packages
+
 Install a few packages that provide TypeScript, React, and React TypeScript bindings, which
 Visual Studio Code will use to provide intelligent suggestions etc.:
 
     npm install --save-dev typescript
     npm install --save react react-dom @types/node @types/react @types/react-dom
 
-Install webpack and related libraries:
+We will use the [webpack](https://webpack.js.org/concepts/) bundler and related libraries, so add those:
 
     npm install --save-dev webpack webpack-cli
     npm install --save-dev awesome-typescript-loader source-map-loader
+
+## Install CSS-related packages
+
+In this quickstart setup we'll bundle Bootstrap and our own CSS directly into
+the output instead of loading from a CDN in order to make the resulting application
+self-contained and usable without network access.
+
+Install the Bootstrap NPM package as well as some webpack plugins
+required for the bundling of CSS:
+
+    npm install --save bootstrap jquery popper.js
+    npm install --save-dev style-loader css-loader
+
+You'll see these configured/used in the webpack.config.js file, shown below.
+
+For more information about bundling CSS:
+
+* https://getbootstrap.com/docs/4.0/getting-started/webpack/
+* https://getbootstrap.com/docs/4.0/getting-started/download/#npm
+* https://stackoverflow.com/a/24191605/182781
 
 # TypeScript Configuration
 
@@ -93,7 +115,7 @@ Create a component, a main code file, and a main HTML file to load it all.
                 <div className="card">
                     <div className="card-body">
                         <h5 className="card-title">{this.props.title}</h5>
-                        <p className="card-text">{this.props.children}</p>
+                        <div className="card-text">{this.props.children}</div>
                         <a href="#" className="btn btn-primary">Go somewhere</a>
                     </div>
                 </div>
@@ -103,6 +125,9 @@ Create a component, a main code file, and a main HTML file to load it all.
 
 ### src/index.tsx
 
+    import 'bootstrap';
+    import 'bootstrap/dist/css/bootstrap.min.css';
+    import './main.css';
     import * as React from "react";
     import * as ReactDOM from "react-dom";
     import { Message } from "./components/Message";
@@ -123,9 +148,6 @@ Create a component, a main code file, and a main HTML file to load it all.
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
         <title>Hello, world!</title>
       </head>
       <body>
@@ -135,11 +157,6 @@ Create a component, a main code file, and a main HTML file to load it all.
           </div>
         </div>
         
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="bundle.js"></script>
       </body>
     </html>
@@ -174,7 +191,10 @@ Add a `webpack.config.js` file. This is based on <https://www.typescriptlang.org
                 { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
     
                 // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-                { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
+                { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+    
+                // For bundling CSS
+                { test: /\.css$/, use: ['style-loader', 'css-loader'] }
             ]
         },
     

@@ -3,8 +3,8 @@ define(include_and_indent, {{esyscmd({{sed -e 's/^/    /' $1}})dnl}})dnl
 
 # TypeScript / React / Webpack / Visual Studio Code Quick Start
 
-Note to self for setting up a basic React/TypeScript/Webpack project
-with Visual Studio Code (VSC).
+This is mostly a long note to myself for setting up a basic React/TypeScript/Webpack
+project with Visual Studio Code (VSC). Hopefully it is useful as a starting point for others.
 
 A lot of this is collected from <https://www.typescriptlang.org/docs/handbook/react-&-webpack.html> and <https://webpack.js.org/guides.>
 
@@ -14,13 +14,13 @@ This assumes you have [node.js and NPM](https://nodejs.org/en/) installed.
 
 # Basic Node Project setup
 
-Create the project toplevel directory:
+## Create the project toplevel directory
 
     mkdir typescript-react-vsc-quickstart
     cd typescript-react-vsc-quickstart
     mkdir -p {dist,src/components}
 
-Initialize a node package for the project:
+## Initialize a node package for the project
 
     % npm init
     package name: (typescript-react-vsc-quickstart2) 
@@ -43,16 +43,38 @@ and removing:
 
     "main": index.js
 
+## Install prerequisite NPM packages
+
 Install a few packages that provide TypeScript, React, and React TypeScript bindings, which
 Visual Studio Code will use to provide intelligent suggestions etc.:
 
     npm install --save-dev typescript
     npm install --save react react-dom @types/node @types/react @types/react-dom
 
-Install webpack and related libraries:
+We will use the [webpack](https://webpack.js.org/concepts/) bundler and related libraries, so add those:
 
     npm install --save-dev webpack webpack-cli
     npm install --save-dev awesome-typescript-loader source-map-loader
+
+## Install CSS-related packages
+
+In this quickstart setup we'll bundle Bootstrap and our own CSS directly into
+the output instead of loading from a CDN in order to make the resulting application
+self-contained and usable without network access.
+
+Install the Bootstrap NPM package as well as some webpack plugins
+required for the bundling of CSS:
+
+    npm install --save bootstrap jquery popper.js
+    npm install --save-dev style-loader css-loader
+
+You'll see these configured/used in the webpack.config.js file, shown below.
+
+For more information about bundling CSS:
+
+* https://getbootstrap.com/docs/4.0/getting-started/webpack/
+* https://getbootstrap.com/docs/4.0/getting-started/download/#npm
+* https://stackoverflow.com/a/24191605/182781
 
 # TypeScript Configuration
 
