@@ -7,7 +7,15 @@ module.exports = {
     },
 
     devServer: {
-        contentBase: './dist'
+        // old, webpack-dev-server < 4:
+        // contentBase: './dist'
+
+        // new, webpack-dev-server >= 4:
+        static: [
+            __dirname + '/dist',
+        ],
+
+        open: true
     },
 
     // Enable sourcemaps for debugging webpack's output.

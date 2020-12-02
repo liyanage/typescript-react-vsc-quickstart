@@ -163,7 +163,7 @@ Create a component, a main code file, and a main HTML file to load it all.
 
 ## Add a webpack Configuration File
 
-Add a `webpack.config.js` file. This is based on <https://www.typescriptlang.org/docs/handbook/react-&-webpack.html.>
+Add a `webpack.config.js` file. This is based on <https://webpack.js.org/guides/typescript/>
 
     module.exports = {
         mode: "development",
@@ -174,7 +174,15 @@ Add a `webpack.config.js` file. This is based on <https://www.typescriptlang.org
         },
     
         devServer: {
-            contentBase: './dist'
+            // old, webpack-dev-server < 4:
+            // contentBase: './dist'
+    
+            // new, webpack-dev-server >= 4:
+            static: [
+                __dirname + '/dist',
+            ],
+    
+            open: true
         },
     
         // Enable sourcemaps for debugging webpack's output.
@@ -246,21 +254,36 @@ To start watch mode, run:
 
 It should be pretty fast for incremental builds. Just reload the `index.html` file to see the changes.
 
-## Run with dev-server
+## Run serve mode
 
-There is also a [dev-server](https://webpack.js.org/guides/development/#using-webpack-dev-server) to automate the manual reload that's needed in watch mode. To set it up:
+There is also a `webpack serve` command to automate the manual reload that's needed in watch mode.
+To enable it, you have to install webpack-dev-server:
 
     npm install --save-dev webpack-dev-server
 
-This requires the following section in `webpack.config.js`, already shown above:
+---
+Note: At the time of writing (December 2020) webpack is at version 5 but webpack-dev-server
+version 4, which introduces webpack 5 compatibility, is still in beta, so I had to install it
+with:
+
+    npm install webpack-dev-server@next --save-dev
+
+---
+webpack-dev-server requires the following section in `webpack.config.js`, already shown above:
 
     devServer: {
-        contentBase: './dist'
+        static: [
+            __dirname + '/dist',
+        ],
+        open: true
     },
 
-and another additional entry in the `scripts` section of `package.json`:
+(Note that this config snippet is also specific to webpack-dev-server version 4,
+instead of `static` there used to be `contentBase`, see [the changelog](https://github.com/webpack/webpack-dev-server/compare/v3.11.0...v4.0.0-beta.0?short_path=06572a9#diff-06572a96a58dc510037d5efa622f9bec8519bc1beab13c9f251e97e657a9d4ed) for details.)
 
-    "start": "npx webpack-dev-server --open"
+It also requires another additional entry in the `scripts` section of `package.json`:
+
+    "start": "npx webpack serve"
 
 Now you can start it with
 
@@ -282,8 +305,25 @@ Init Git repo:
 
 ## NPM Maintenance
 
+Update NPM:
+
+    npm install -g npm@latest
+
 Various NPM commands:
 
+Show outdated packages:    
+
     npm outdated
+
+Update to current minor:
+
     npm update
-    npm update package@latest
+
+Update to major:
+
+    npm install package@latest
+
+Force-update all to major:
+
+    npm outdated | cut -f 1 -d ' ' | tail +2 | xargs -I{} npm install {}@latest
+
